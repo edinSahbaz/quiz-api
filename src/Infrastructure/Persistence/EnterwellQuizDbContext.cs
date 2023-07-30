@@ -1,13 +1,11 @@
-﻿using Domain.Entities.Quiz;
-using Domain.Entities.Question;
-using Domain.Entities.QuizQuestion;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;
 
 public class EnterwellQuizDbContext : DbContext
 {
-    public EnterwellQuizDbContext(DbContextOptions options)
+    public EnterwellQuizDbContext(DbContextOptions<EnterwellQuizDbContext> options)
         : base(options)
     {
     }
@@ -25,6 +23,4 @@ public class EnterwellQuizDbContext : DbContext
     public DbSet<Quiz> Quizzes { get; set; }
 
     public DbSet<Question> Questions { get; set; }
-
-    public DbSet<QuizQuestion> QuizQuestions { get; set; }
 }
