@@ -7,12 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DomainEvents\" />
     <Folder Include="Entities\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="ValueObjects\" />
-    <Folder Include="Shared\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="Entities\Question\" />
+    <Folder Include="Entities\Quiz\" />
+    <Folder Include="Entities\QuizQuestion\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Entities\Question\" />
+    <None Remove="Entities\Quiz\" />
+    <None Remove="Entities\QuizQuestion\" />
+  </ItemGroup>
 </Project>
