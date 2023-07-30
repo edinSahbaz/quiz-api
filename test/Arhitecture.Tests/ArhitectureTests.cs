@@ -5,7 +5,6 @@ public class ArhitectureTests
     private const string DomainNamespace = "Domain";
     private const string ApplicationNamespace = "Application";
     private const string InfrastructureNamespace = "Infrastructure";
-    private const string PresentationNamespace = "Presentation";
     private const string WebApiNamespace = "WebApi";
 
     [Fact]
@@ -18,7 +17,6 @@ public class ArhitectureTests
         {
             ApplicationNamespace,
             InfrastructureNamespace,
-            PresentationNamespace,
             WebApiNamespace
         };
 
@@ -42,7 +40,28 @@ public class ArhitectureTests
         var otherProjects = new[]
         {
             InfrastructureNamespace,
-            PresentationNamespace,
+            WebApiNamespace
+        };
+
+        // Act
+        var testResult = Types
+            .InAssembly(assembly)
+            .ShouldNot()
+            .HaveDependencyOnAll(otherProjects)
+            .GetResult();
+
+        // Assert
+        Assert.True(testResult.IsSuccessful);
+    }
+
+    [Fact]
+    public void Infrastructure_Should_Not_HaveDependencyOnOtherProjects()
+    {
+        // Arrange
+        var assembly = typeof(Infrastructure.AssemblyReference).Assembly;
+
+        var otherProjects = new[]
+        {
             WebApiNamespace
         };
 
@@ -70,52 +89,6 @@ public class ArhitectureTests
             .HaveNameEndingWith("Handler")
             .Should()
             .HaveDependencyOn(DomainNamespace)
-            .GetResult();
-
-        // Assert
-        Assert.True(testResult.IsSuccessful);
-    }
-
-    [Fact]
-    public void Infrastructure_Should_Not_HaveDependencyOnOtherProjects()
-    {
-        // Arrange
-        var assembly = typeof(Infrastructure.AssemblyReference).Assembly;
-
-        var otherProjects = new[]
-        {
-            PresentationNamespace,
-            WebApiNamespace
-        };
-
-        // Act
-        var testResult = Types
-            .InAssembly(assembly)
-            .ShouldNot()
-            .HaveDependencyOnAll(otherProjects)
-            .GetResult();
-
-        // Assert
-        Assert.True(testResult.IsSuccessful);
-    }
-
-    [Fact]
-    public void Presentation_Should_Not_HaveDependencyOnOtherProjects()
-    {
-        // Arrange
-        var assembly = typeof(Infrastructure.AssemblyReference).Assembly;
-
-        var otherProjects = new[]
-        {
-            InfrastructureNamespace,
-            WebApiNamespace
-        };
-
-        // Act
-        var testResult = Types
-            .InAssembly(assembly)
-            .ShouldNot()
-            .HaveDependencyOnAll(otherProjects)
             .GetResult();
 
         // Assert

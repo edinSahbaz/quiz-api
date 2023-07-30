@@ -17,8 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Email\" />
-    <Folder Include="Services\Messaging\" />
     <Folder Include="Persistence\Configurations\" />
   </ItemGroup>
 
