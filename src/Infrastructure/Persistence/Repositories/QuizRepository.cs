@@ -17,4 +17,12 @@ public class QuizRepository : IQuizRepository
     {
         return await _context.Quizzes.OrderBy(q => q.AddedTime).ToListAsync();
     }
+
+    public async Task<Quiz> CreateQuiz(Quiz toCreate)
+    {
+        _context.Quizzes.Add(toCreate);
+        await _context.SaveChangesAsync();
+
+        return toCreate;
+    }
 }
