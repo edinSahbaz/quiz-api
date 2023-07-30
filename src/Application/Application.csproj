@@ -18,8 +18,6 @@
   <ItemGroup>
     <Folder Include="Quizzes\CommandHandlers\" />
     <Folder Include="Quizzes\Commands\" />
-    <Folder Include="Quizzes\Queries\" />
-    <Folder Include="Quizzes\QueryHandlers\" />
   </ItemGroup>
 
 </Project>

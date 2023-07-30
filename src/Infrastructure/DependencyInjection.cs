@@ -15,6 +15,7 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("Azure")));
         
         services.AddScoped<IQuestionRepository, QuestionRepository>();
+        services.AddScoped<IQuizRepository, QuizRepository>();
         
         return services;
     }
