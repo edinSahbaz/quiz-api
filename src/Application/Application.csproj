@@ -16,11 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Behaviors\" />
-    <Folder Include="Contracts\" />
-    <Folder Include="Entity1\Commands\" />
-    <Folder Include="Entity1\Events\" />
-    <Folder Include="Entity1\Queries\" />
+    <Folder Include="Question\Commands\" />
+    <Folder Include="Question\Events\" />
+    <Folder Include="Question\Queries\" />
+    <Folder Include="Quiz\Commands\" />
+    <Folder Include="Quiz\Events\" />
+    <Folder Include="Quiz\Queries\" />
   </ItemGroup>
 
 </Project>
