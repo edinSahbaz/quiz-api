@@ -1,6 +1,4 @@
-﻿using NetArchTest.Rules;
-
-namespace Arhitecture.Tests;
+﻿namespace Arhitecture.Tests;
 
 public class ArhitectureTests
 {

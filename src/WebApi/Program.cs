@@ -2,8 +2,11 @@ using Application;
 using Infrastructure;
 using Presentation;
 using Serilog;
+using WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.RegisterServices();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -13,7 +16,7 @@ builder.Services
     .AddInfrastructure()
     .AddPresentation();
 
-builder.Host.UseSerilog((context, configuration) => 
+builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
 var app = builder.Build();
@@ -25,6 +28,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSerilogRequestLogging();
+
+app.UseGlobalExceptionHandling();
 
 app.UseHttpsRedirection();
 
