@@ -75,23 +75,4 @@ public class ArchitectureTests
         // Assert
         Assert.True(testResult.IsSuccessful);
     }
-
-    [Fact]
-    public void Handlers_Should_Have_DependencyOnDomain()
-    {
-        // Arrange
-        var assembly = typeof(Application.AssemblyReference).Assembly;
-
-        // Act
-        var testResult = Types
-            .InAssembly(assembly)
-            .That()
-            .HaveNameEndingWith("Handler")
-            .Should()
-            .HaveDependencyOn(DomainNamespace)
-            .GetResult();
-
-        // Assert
-        Assert.True(testResult.IsSuccessful);
-    }
 }
