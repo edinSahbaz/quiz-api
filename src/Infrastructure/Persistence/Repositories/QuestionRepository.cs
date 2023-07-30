@@ -1,9 +1,8 @@
 using Domain.Entities.Questions;
 using Domain.Repositories;
-using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories;
+namespace Infrastructure.Persistence.Repositories;
 
 public class QuestionRepository : IQuestionRepository
 {

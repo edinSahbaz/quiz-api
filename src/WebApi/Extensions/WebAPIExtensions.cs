@@ -1,17 +1,9 @@
 ﻿using WebApi.Abstractions;
-using Microsoft.EntityFrameworkCore;
-using Infrastructure.Persistence;
 
 namespace WebApi.Extensions;
 
-public static class WebAPIExtensions
+public static class WebApiExtensions
 {
-    public static void RegisterServices(this WebApplicationBuilder builder)
-    {
-        var cs = builder.Configuration.GetConnectionString("Azure");
-        builder.Services.AddDbContext<EnterwellQuizDbContext>(opt => opt.UseSqlServer(cs));
-    }
-
     public static void RegisterEndpointDefinitions(this WebApplication app)
     {
         var endpointDefinitions = typeof(Program).Assembly
@@ -25,21 +17,5 @@ public static class WebAPIExtensions
         {
             endpointDefinition.RegisterEndpoints(app);
         }
-    }
-
-    public static void UseGlobalExceptionHandling(this WebApplication app)
-    {
-        app.Use(async (ctx, next) =>
-        {
-            try
-            {
-                await next();
-            }
-            catch (Exception)
-            {
-                ctx.Response.StatusCode = 500;
-                await ctx.Response.WriteAsync("An error occured.");
-            }
-        });
     }
 }

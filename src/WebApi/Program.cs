@@ -5,14 +5,12 @@ using WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.RegisterServices();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure();
+    .AddInfrastructure(builder.Configuration);
 
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
@@ -27,8 +25,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseSerilogRequestLogging();
 
-app.UseGlobalExceptionHandling();
-
 app.UseHttpsRedirection();
+
+app.RegisterEndpointDefinitions();
 
 app.Run();
