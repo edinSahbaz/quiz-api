@@ -15,7 +15,7 @@ public class QuestionRepository : IQuestionRepository
     
     public async Task<ICollection<Question>> GetAllQuestions()
     {
-        return await _context.Questions.OrderBy(q => q.Prompt).ToListAsync();
+        return await _context.Questions.OrderBy(q => q.AddedTime).ToListAsync();
     }
 
     public async Task<Question> CreateQuestion(Question toCreate)

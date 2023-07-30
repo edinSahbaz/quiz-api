@@ -14,6 +14,7 @@ public class QuestionEndpoints : IEndpointDefinition
 
         questions.MapGet("/", GetAllQuestions);
         questions.MapPost("/", CreateQuestion);
+        questions.MapPut("/", UpdateQuestion);
         questions.MapDelete("/", DeleteQuestion);
     }
     
@@ -37,6 +38,20 @@ public class QuestionEndpoints : IEndpointDefinition
         var createdQuestion = await mediator.Send(createQuestion);
 
         return TypedResults.Ok(createdQuestion);
+    }
+    
+    private async Task<IResult> UpdateQuestion(IMediator mediator, Question question)
+    {
+        var updateQuestion = new UpdateQuestion
+        {
+            QuestionId = question.Id,
+            Prompt = question.Prompt,
+            Answer = question.Answer,
+        };
+        
+        var updatedQuestion = await mediator.Send(updateQuestion);
+
+        return TypedResults.Ok(updatedQuestion);
     }
     
     private async Task<IResult> DeleteQuestion(IMediator mediator, Guid questionId)
