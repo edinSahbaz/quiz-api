@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Questions;
+﻿using System.Text.Json.Serialization;
+using Domain.Entities.Questions;
 using Domain.Primitives;
 
 namespace Domain.Entities.Quizzes;

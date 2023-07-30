@@ -18,6 +18,13 @@ public class QuizRepository : IQuizRepository
         return await _context.Quizzes.OrderBy(q => q.AddedTime).ToListAsync();
     }
 
+    public async Task<Quiz> GetQuizById(QuizId quizId)
+    {
+        return await _context.Quizzes
+            .Include(q => q.Questions)
+            .FirstOrDefaultAsync(q => q.Id == quizId);
+    }
+
     public async Task<Quiz> CreateQuiz(Quiz toCreate)
     {
         _context.Quizzes.Add(toCreate);

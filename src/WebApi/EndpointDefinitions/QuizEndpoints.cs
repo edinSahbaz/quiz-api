@@ -13,6 +13,7 @@ public class QuizEndpoints : IEndpointDefinition
         var quizzes = app.MapGroup("/api/quizzes");
 
         quizzes.MapGet("/", GetAllQuizzes);
+        quizzes.MapGet("/{quizId:guid}", GetQuizById);
         quizzes.MapPost("/", CreateQuiz);
     }
     
@@ -22,6 +23,14 @@ public class QuizEndpoints : IEndpointDefinition
         var quizzes = await mediator.Send(getAllQuizzes);
 
         return TypedResults.Ok(quizzes);
+    }
+    
+    private async Task<IResult> GetQuizById(IMediator mediator, Guid quizId)
+    {
+        var getQuiz = new GetQuizById { QuizId = new QuizId(quizId) };
+        var quiz = await mediator.Send(getQuiz);
+
+        return TypedResults.Ok(quiz);
     }
     
     private async Task<IResult> CreateQuiz(IMediator mediator, Quiz quiz)

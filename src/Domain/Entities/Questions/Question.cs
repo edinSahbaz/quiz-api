@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Quizzes;
+﻿using System.Text.Json.Serialization;
+using Domain.Entities.Quizzes;
 using Domain.Primitives;
 
 namespace Domain.Entities.Questions;
@@ -9,5 +10,6 @@ public sealed class Question : Entity
     public string Prompt { get; set; }
     public string Answer { get; set; }
     
+    [JsonIgnore]
     public ICollection<Quiz> Quizzes { get; set; }
 }
