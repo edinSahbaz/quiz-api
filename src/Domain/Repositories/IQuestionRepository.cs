@@ -1,6 +1,6 @@
-using Domain.Entities;
+using Domain.Entities.Questions;
 
-namespace Application.Abstractions;
+namespace Domain.Repositories;
 
 public interface IQuestionRepository
 {

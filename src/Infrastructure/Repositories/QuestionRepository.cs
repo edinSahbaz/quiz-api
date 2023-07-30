@@ -1,5 +1,5 @@
-using Application.Abstractions;
-using Domain.Entities;
+using Domain.Entities.Questions;
+using Domain.Repositories;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 

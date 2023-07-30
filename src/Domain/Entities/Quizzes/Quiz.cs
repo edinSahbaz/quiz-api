@@ -1,6 +1,7 @@
-﻿using Domain.Primitives;
+﻿using Domain.Entities.Questions;
+using Domain.Primitives;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Quizzes;
 
 public sealed class Quiz : Entity
 {
@@ -9,5 +10,3 @@ public sealed class Quiz : Entity
     
     public ICollection<Question> Questions { get; set; }
 }
-
-public record QuizId(Guid Value);
