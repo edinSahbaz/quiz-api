@@ -7,4 +7,5 @@ public interface IQuizRepository
     Task<ICollection<Quiz>> GetAllQuizzes();
     Task<Quiz> GetQuizById(QuizId quizId);
     Task<Quiz> CreateQuiz(Quiz toCreate);
+    Task DeleteQuiz(QuizId quizId);
 }

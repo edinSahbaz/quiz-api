@@ -15,8 +15,9 @@ public class QuizEndpoints : IEndpointDefinition
         quizzes.MapGet("/", GetAllQuizzes);
         quizzes.MapGet("/{quizId:guid}", GetQuizById);
         quizzes.MapPost("/", CreateQuiz);
+        quizzes.MapDelete("/", DeleteQuiz);
     }
-    
+
     private async Task<IResult> GetAllQuizzes(IMediator mediator)
     {
         var getAllQuizzes = new GetAllQuizzes();
@@ -44,5 +45,13 @@ public class QuizEndpoints : IEndpointDefinition
         var createdQuiz = await mediator.Send(createQuiz);
 
         return TypedResults.Ok(createdQuiz);
+    }
+    
+    private async Task<IResult> DeleteQuiz(IMediator mediator, Guid quizId)
+    {
+        var deleteQuiz = new DeleteQuiz { QuizId = new QuizId(quizId) };
+        await mediator.Send(deleteQuiz);
+
+        return TypedResults.NoContent();
     }
 }

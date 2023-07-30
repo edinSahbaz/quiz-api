@@ -32,4 +32,14 @@ public class QuizRepository : IQuizRepository
 
         return toCreate;
     }
+
+    public async Task DeleteQuiz(QuizId quizId)
+    {
+        var quiz = _context.Quizzes.FirstOrDefault(q => q.Id == quizId);
+        
+        if(quiz is null) return;
+
+        _context.Quizzes.Remove(quiz);
+        await _context.SaveChangesAsync();
+    }
 }
