@@ -1,6 +1,6 @@
-﻿namespace Arhitecture.Tests;
+﻿namespace Architecture.Tests;
 
-public class ArhitectureTests
+public class ArchitectureTests
 {
     private const string DomainNamespace = "Domain";
     private const string ApplicationNamespace = "Application";
