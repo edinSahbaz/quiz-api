@@ -1,10 +1,12 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Primitives;
 
-public sealed class Quiz
+namespace Domain.Entities;
+
+public sealed class Quiz : Entity
 {
     public QuizId Id { get; set; }
     public string Title { get; set; }
-    public DateTime AddedTime { get; set; }
+    
     public ICollection<Question> Questions { get; set; }
 }
 

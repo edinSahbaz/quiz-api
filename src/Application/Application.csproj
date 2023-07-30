@@ -16,12 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Question\Commands\" />
-    <Folder Include="Question\Events\" />
-    <Folder Include="Question\Queries\" />
-    <Folder Include="Quiz\Commands\" />
-    <Folder Include="Quiz\Events\" />
-    <Folder Include="Quiz\Queries\" />
+    <Folder Include="Questions\Queries\" />
+    <Folder Include="Questions\QueryHandlers\" />
+    <Folder Include="Quizzes\CommandHandlers\" />
+    <Folder Include="Quizzes\Commands\" />
+    <Folder Include="Quizzes\Queries\" />
+    <Folder Include="Quizzes\QueryHandlers\" />
   </ItemGroup>
 
 </Project>
