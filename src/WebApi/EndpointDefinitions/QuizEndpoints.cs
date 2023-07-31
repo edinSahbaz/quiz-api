@@ -1,7 +1,9 @@
+using Application.DTOs;
 using MediatR;
 using Domain.Entities.Quizzes;
 using Application.Quizzes.Commands;
 using Application.Quizzes.Queries;
+using Domain.Entities.Questions;
 using WebApi.Abstractions;
 
 namespace WebApi.EndpointDefinitions;
@@ -34,12 +36,12 @@ public class QuizEndpoints : IEndpointDefinition
         return TypedResults.Ok(quiz);
     }
     
-    private async Task<IResult> CreateQuiz(IMediator mediator, Quiz quiz)
+    private async Task<IResult> CreateQuiz(IMediator mediator, NewQuiz quiz)
     {
         var createQuiz = new CreateQuiz
         {
-            Id = quiz.Id,
             Title = quiz.Title,
+            QuestionIds = quiz.QuestionIds
         };
         
         var createdQuiz = await mediator.Send(createQuiz);

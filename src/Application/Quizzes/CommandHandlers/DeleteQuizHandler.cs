@@ -1,7 +1,6 @@
 using MediatR;
-using Application.Quizzes.Commands;
-using Domain.Entities.Quizzes;
 using Domain.Repositories;
+using Application.Quizzes.Commands;
 
 namespace Application.Quizzes.CommandHandlers;
 

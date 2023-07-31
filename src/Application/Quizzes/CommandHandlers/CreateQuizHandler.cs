@@ -1,7 +1,9 @@
+using System.Collections.ObjectModel;
 using MediatR;
 using Domain.Repositories;
 using Domain.Entities.Quizzes;
 using Application.Quizzes.Commands;
+using Domain.Entities.Questions;
 
 namespace Application.Quizzes.CommandHandlers;
 
@@ -18,13 +20,16 @@ public class CreateQuizHandler : IRequestHandler<CreateQuiz, Quiz>
     
     public async Task<Quiz> Handle(CreateQuiz request, CancellationToken cancellationToken)
     {
-        var questions = await _questionRepository.GetAllQuestions();
+        var questionIds = request.QuestionIds;
+        var questions = await _questionRepository.GetQuestionsByIds(questionIds);
 
         var quiz = new Quiz
         {
             Id = new QuizId(Guid.NewGuid()),
             Title = request.Title,
             Questions = questions,
+            AddedTime = DateTime.Now,
+            LastModified = DateTime.Now
         };
 
         return await _quizRepository.CreateQuiz(quiz);

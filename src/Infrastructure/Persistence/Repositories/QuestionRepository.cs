@@ -21,7 +21,12 @@ public class QuestionRepository : IQuestionRepository
 
     public async Task<ICollection<Question>> GetQuizQuestions(QuizId quizId)
     {
-        return await _context.Questions.OrderBy(q => q.Quizzes.Any(quiz => quiz.Id == quizId)).ToListAsync();
+        return await _context.Questions.Where(q => q.Quizzes.Any(quiz => quiz.Id == quizId)).OrderBy(q => q.AddedTime).ToListAsync();
+    }
+
+    public async Task<ICollection<Question>> GetQuestionsByIds(ICollection<QuestionId> questions)
+    {
+        return await _context.Questions.Where(q => questions.Contains(q.Id)).OrderBy(q => q.AddedTime).ToListAsync();
     }
 
     public async Task<Question> CreateQuestion(Question toCreate)

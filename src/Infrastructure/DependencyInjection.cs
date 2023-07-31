@@ -12,7 +12,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<EnterwellQuizDbContext>(options => 
-            options.UseSqlServer(configuration.GetConnectionString("Azure")));
+            options.UseSqlServer(configuration.GetConnectionString("LocalDB")));
         
         services.AddScoped<IQuestionRepository, QuestionRepository>();
         services.AddScoped<IQuizRepository, QuizRepository>();

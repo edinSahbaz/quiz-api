@@ -1,12 +1,10 @@
-using MediatR;
 using Domain.Entities.Quizzes;
 using Domain.Entities.Questions;
 
-namespace Application.Quizzes.Commands;
+namespace Application.DTOs;
 
-public class CreateQuiz : IRequest<Quiz>
+public sealed class NewQuiz
 {
-    public QuizId Id { get; set; }
     public string Title { get; set; }
     public ICollection<QuestionId> QuestionIds { get; set; }
 }
