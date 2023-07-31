@@ -38,6 +38,7 @@ public class QuestionRepository : IQuestionRepository
 
         question.Prompt = prompt;
         question.Answer = answer;
+        question.LastModified = DateTime.Now;
 
         await _context.SaveChangesAsync();
         
