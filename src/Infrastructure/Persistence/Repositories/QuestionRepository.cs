@@ -1,4 +1,5 @@
 using Domain.Entities.Questions;
+using Domain.Entities.Quizzes;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,11 @@ public class QuestionRepository : IQuestionRepository
     public async Task<ICollection<Question>> GetAllQuestions()
     {
         return await _context.Questions.OrderBy(q => q.AddedTime).ToListAsync();
+    }
+
+    public async Task<ICollection<Question>> GetQuizQuestions(QuizId quizId)
+    {
+        return await _context.Questions.OrderBy(q => q.Quizzes.Any(quiz => quiz.Id == quizId)).ToListAsync();
     }
 
     public async Task<Question> CreateQuestion(Question toCreate)

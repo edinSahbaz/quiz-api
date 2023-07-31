@@ -1,6 +1,7 @@
 using Application.Questions.Commands;
 using Application.Questions.Queries;
 using Domain.Entities.Questions;
+using Domain.Entities.Quizzes;
 using MediatR;
 using WebApi.Abstractions;
 
@@ -13,6 +14,7 @@ public class QuestionEndpoints : IEndpointDefinition
         var questions = app.MapGroup("/api/questions");
 
         questions.MapGet("/", GetAllQuestions);
+        questions.MapGet("/{quizId:guid}", GetQuizQuestions);
         questions.MapPost("/", CreateQuestion);
         questions.MapPut("/", UpdateQuestion);
         questions.MapDelete("/", DeleteQuestion);
@@ -22,6 +24,14 @@ public class QuestionEndpoints : IEndpointDefinition
     {
         var getAllQuestions = new GetAllQuestions();
         var questions = await mediator.Send(getAllQuestions);
+
+        return TypedResults.Ok(questions);
+    }
+    
+    private async Task<IResult> GetQuizQuestions(IMediator mediator, Guid quizId)
+    {
+        var getQuestions = new GetQuizQuestions { QuizId = new QuizId(quizId) };
+        var questions = await mediator.Send(getQuestions);
 
         return TypedResults.Ok(questions);
     }
