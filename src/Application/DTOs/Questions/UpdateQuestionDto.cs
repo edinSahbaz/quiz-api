@@ -1,8 +1,8 @@
 using Domain.Entities.Questions;
 
-namespace Application.DTOs.Question;
+namespace Application.DTOs.Questions;
 
-public class EditQuestionDto
+public class UpdateQuestionDto
 {
     public QuestionId Id { get; set; }
     public string Prompt { get; set; }

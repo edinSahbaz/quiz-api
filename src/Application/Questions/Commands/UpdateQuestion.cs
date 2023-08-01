@@ -1,11 +1,9 @@
 using MediatR;
+using Application.DTOs.Questions;
 using Domain.Entities.Questions;
 
 namespace Application.Questions.Commands;
 
-public class UpdateQuestion : IRequest<Question>
+public class UpdateQuestion : UpdateQuestionDto, IRequest<Question>
 {
-    public QuestionId QuestionId { get; set; }    
-    public string Prompt { get; set; }
-    public string Answer { get; set; }
 }

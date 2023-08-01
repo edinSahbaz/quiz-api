@@ -1,5 +1,5 @@
 using MediatR;
-using Application.DTOs.Question;
+using Application.DTOs.Questions;
 using Application.Questions.Queries;
 using Application.Questions.Commands;
 using Domain.Entities.Questions;
@@ -46,7 +46,7 @@ public class QuestionEndpoints : IEndpointDefinition
         return TypedResults.Ok(questions);
     }
     
-    private async Task<IResult> CreateQuestion(IMediator mediator, AddQuestionDto question)
+    private async Task<IResult> CreateQuestion(IMediator mediator, CreateQuestionDto question)
     {
         var createQuestion = new CreateQuestion
         {
@@ -59,11 +59,11 @@ public class QuestionEndpoints : IEndpointDefinition
         return TypedResults.Ok(createdQuestion);
     }
     
-    private async Task<IResult> UpdateQuestion(IMediator mediator, EditQuestionDto question)
+    private async Task<IResult> UpdateQuestion(IMediator mediator, UpdateQuestionDto question)
     {
         var updateQuestion = new UpdateQuestion
         {
-            QuestionId = question.Id,
+            Id = question.Id,
             Prompt = question.Prompt,
             Answer = question.Answer,
         };

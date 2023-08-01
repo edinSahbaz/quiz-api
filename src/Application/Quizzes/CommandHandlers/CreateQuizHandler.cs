@@ -26,8 +26,6 @@ public class CreateQuizHandler : IRequestHandler<CreateQuiz, Quiz>
             Id = new QuizId(Guid.NewGuid()),
             Title = request.Title,
             Questions = questions,
-            AddedTime = DateTime.Now,
-            LastModified = DateTime.Now
         };
 
         return await _quizRepository.CreateQuiz(quiz);

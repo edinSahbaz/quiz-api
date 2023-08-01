@@ -16,6 +16,6 @@ public class UpdateQuestionHandler : IRequestHandler<UpdateQuestion, Question>
     
     public async Task<Question> Handle(UpdateQuestion request, CancellationToken cancellationToken)
     {
-        return await _questionRepository.UpdateQuestion(request.QuestionId, request.Prompt, request.Answer);
+        return await _questionRepository.UpdateQuestion(request.Id, request.Prompt, request.Answer);
     }
 }

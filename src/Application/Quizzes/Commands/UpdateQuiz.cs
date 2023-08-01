@@ -1,9 +1,10 @@
-using MediatR;
 using Application.DTOs.Quizzes;
+using MediatR;
 using Domain.Entities.Quizzes;
+using Domain.Entities.Questions;
 
 namespace Application.Quizzes.Commands;
 
-public class CreateQuiz : CreateQuizDto, IRequest<Quiz>
+public class UpdateQuiz : UpdateQuizDto, IRequest<Quiz>
 {
 }

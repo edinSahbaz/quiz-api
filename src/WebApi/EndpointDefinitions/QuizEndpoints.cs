@@ -2,7 +2,7 @@ using MediatR;
 using Domain.Entities.Quizzes;
 using Application.Quizzes.Commands;
 using Application.Quizzes.Queries;
-using Application.DTOs.Quiz;
+using Application.DTOs.Quizzes;
 using WebApi.Abstractions;
 
 namespace WebApi.EndpointDefinitions;
@@ -16,6 +16,7 @@ public class QuizEndpoints : IEndpointDefinition
         quizzes.MapGet("/", GetAllQuizzes);
         quizzes.MapGet("/{quizId:guid}", GetQuizById);
         quizzes.MapPost("/", CreateQuiz);
+        quizzes.MapPut("/", UpdateQuiz);
         quizzes.MapDelete("/", DeleteQuiz);
     }
 
@@ -35,7 +36,7 @@ public class QuizEndpoints : IEndpointDefinition
         return TypedResults.Ok(quiz);
     }
     
-    private async Task<IResult> CreateQuiz(IMediator mediator, AddQuizDto newQuiz)
+    private async Task<IResult> CreateQuiz(IMediator mediator, CreateQuizDto newQuiz)
     {
         var createQuiz = new CreateQuiz
         {
@@ -46,6 +47,20 @@ public class QuizEndpoints : IEndpointDefinition
         var createdQuiz = await mediator.Send(createQuiz);
 
         return TypedResults.Ok(createdQuiz);
+    }
+    
+    private async Task<IResult> UpdateQuiz(IMediator mediator, UpdateQuizDto quiz)
+    {
+        var updateQuiz = new UpdateQuiz
+        {
+            Id = quiz.Id,
+            Title = quiz.Title,
+            QuestionIds = quiz.QuestionIds
+        };
+        
+        var updatedQuiz = await mediator.Send(updateQuiz);
+
+        return TypedResults.Ok(updatedQuiz);
     }
     
     private async Task<IResult> DeleteQuiz(IMediator mediator, Guid quizId)
