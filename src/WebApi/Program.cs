@@ -1,7 +1,8 @@
+using Serilog;
 using Application;
 using Infrastructure;
 using WebApi.Extensions;
-using Serilog;
+using WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseSerilogRequestLogging();
 
+
 app.UseHttpsRedirection();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.RegisterEndpointDefinitions();
 
