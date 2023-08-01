@@ -1,5 +1,5 @@
 using MediatR;
-using Application.DTOs.Questions;
+using Application.DTOs.Question;
 using Application.Questions.Queries;
 using Application.Questions.Commands;
 using Domain.Entities.Questions;
@@ -16,6 +16,7 @@ public class QuestionEndpoints : IEndpointDefinition
 
         questions.MapGet("/", GetAllQuestions);
         questions.MapGet("/{quizId:guid}", GetQuizQuestions);
+        questions.MapGet("/{prompt}", GetQuestionsByPrompt);
         questions.MapPost("/", CreateQuestion);
         questions.MapPut("/", UpdateQuestion);
         questions.MapDelete("/", DeleteQuestion);
@@ -32,6 +33,14 @@ public class QuestionEndpoints : IEndpointDefinition
     private async Task<IResult> GetQuizQuestions(IMediator mediator, Guid quizId)
     {
         var getQuestions = new GetQuizQuestions { QuizId = new QuizId(quizId) };
+        var questions = await mediator.Send(getQuestions);
+
+        return TypedResults.Ok(questions);
+    }
+    
+    private async Task<IResult> GetQuestionsByPrompt(IMediator mediator, string prompt)
+    {
+        var getQuestions = new GetQuestionsByPrompt { Prompt = prompt };
         var questions = await mediator.Send(getQuestions);
 
         return TypedResults.Ok(questions);

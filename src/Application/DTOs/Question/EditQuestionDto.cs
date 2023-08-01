@@ -1,6 +1,6 @@
 using Domain.Entities.Questions;
 
-namespace Application.DTOs.Questions;
+namespace Application.DTOs.Question;
 
 public class EditQuestionDto
 {
