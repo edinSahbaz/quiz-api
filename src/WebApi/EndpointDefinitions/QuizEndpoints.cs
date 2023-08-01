@@ -1,9 +1,8 @@
-using Application.DTOs;
 using MediatR;
 using Domain.Entities.Quizzes;
 using Application.Quizzes.Commands;
 using Application.Quizzes.Queries;
-using Domain.Entities.Questions;
+using Application.DTOs.Quiz;
 using WebApi.Abstractions;
 
 namespace WebApi.EndpointDefinitions;

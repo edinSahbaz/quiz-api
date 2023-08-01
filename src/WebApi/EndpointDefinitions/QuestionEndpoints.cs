@@ -1,5 +1,5 @@
 using MediatR;
-using Application.DTOs;
+using Application.DTOs.Questions;
 using Application.Questions.Queries;
 using Application.Questions.Commands;
 using Domain.Entities.Questions;

@@ -1,9 +1,10 @@
 using Domain.Entities.Questions;
 
-namespace Application.DTOs;
+namespace Application.DTOs.Questions;
 
-public class AddQuestionDto
+public class EditQuestionDto
 {
+    public QuestionId Id { get; set; }
     public string Prompt { get; set; }
     public string Answer { get; set; }
 }

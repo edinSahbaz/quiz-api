@@ -1,7 +1,7 @@
 using Domain.Entities.Quizzes;
 using Domain.Entities.Questions;
 
-namespace Application.DTOs;
+namespace Application.DTOs.Quiz;
 
 public sealed class AddQuizDto
 {
