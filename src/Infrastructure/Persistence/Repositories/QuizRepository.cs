@@ -1,6 +1,7 @@
 using Domain.Entities.Questions;
 using Domain.Repositories;
 using Domain.Entities.Quizzes;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories;
@@ -23,9 +24,13 @@ public class QuizRepository : IQuizRepository
 
     public async Task<Quiz> GetQuizById(QuizId quizId)
     {
-        return await _context.Quizzes
+        var quiz = await _context.Quizzes
             .Include(q => q.Questions)
             .FirstOrDefaultAsync(q => q.Id == quizId);
+
+        if (quiz is null) throw new QuizNotFoundException();
+        
+        return quiz;
     }
 
     public async Task<Quiz> CreateQuiz(Quiz toCreate)
@@ -45,6 +50,8 @@ public class QuizRepository : IQuizRepository
             .Include(q => q.Questions)
             .FirstOrDefault(q => q.Id == quizId);
 
+        if (quiz is null) throw new QuizNotFoundException(); 
+        
         var questions = await _questionRepository.GetQuestionsByIds(questionIds);
         
         quiz.Title = title;
@@ -61,8 +68,8 @@ public class QuizRepository : IQuizRepository
     public async Task DeleteQuiz(QuizId quizId)
     {
         var quiz = _context.Quizzes.FirstOrDefault(q => q.Id == quizId);
-        
-        if(quiz is null) return;
+
+        if (quiz is null) throw new QuizNotFoundException();
 
         _context.Quizzes.Remove(quiz);
         await _context.SaveChangesAsync();

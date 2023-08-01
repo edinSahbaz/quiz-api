@@ -1,5 +1,6 @@
 using Domain.Entities.Questions;
 using Domain.Entities.Quizzes;
+using Domain.Exceptions;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,6 +56,8 @@ public class QuestionRepository : IQuestionRepository
     {
         var question = _context.Questions.FirstOrDefault(q => q.Id == questionId);
 
+        if (question is null) throw new QuestionNotFoundException();
+        
         question.Prompt = prompt;
         question.Answer = answer;
         question.LastModified = DateTime.Now;
@@ -68,7 +71,7 @@ public class QuestionRepository : IQuestionRepository
     {
         var question = _context.Questions.FirstOrDefault(q => q.Id == questionId);
         
-        if(question is null) return;
+        if(question is null) throw new QuestionNotFoundException();
 
         _context.Questions.Remove(question);
         await _context.SaveChangesAsync();
