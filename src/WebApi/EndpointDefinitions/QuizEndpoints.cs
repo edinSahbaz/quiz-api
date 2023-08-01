@@ -36,12 +36,12 @@ public class QuizEndpoints : IEndpointDefinition
         return TypedResults.Ok(quiz);
     }
     
-    private async Task<IResult> CreateQuiz(IMediator mediator, NewQuiz quiz)
+    private async Task<IResult> CreateQuiz(IMediator mediator, AddQuizDto newQuiz)
     {
         var createQuiz = new CreateQuiz
         {
-            Title = quiz.Title,
-            QuestionIds = quiz.QuestionIds
+            Title = newQuiz.Title,
+            QuestionIds = newQuiz.QuestionIds
         };
         
         var createdQuiz = await mediator.Send(createQuiz);

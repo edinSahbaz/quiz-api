@@ -1,8 +1,9 @@
-using Application.Questions.Commands;
+using MediatR;
+using Application.DTOs;
 using Application.Questions.Queries;
+using Application.Questions.Commands;
 using Domain.Entities.Questions;
 using Domain.Entities.Quizzes;
-using MediatR;
 using WebApi.Abstractions;
 
 namespace WebApi.EndpointDefinitions;
@@ -36,11 +37,10 @@ public class QuestionEndpoints : IEndpointDefinition
         return TypedResults.Ok(questions);
     }
     
-    private async Task<IResult> CreateQuestion(IMediator mediator, Question question)
+    private async Task<IResult> CreateQuestion(IMediator mediator, AddQuestionDto question)
     {
         var createQuestion = new CreateQuestion
         {
-            Id = question.Id,
             Prompt = question.Prompt,
             Answer = question.Answer,
         };
@@ -50,7 +50,7 @@ public class QuestionEndpoints : IEndpointDefinition
         return TypedResults.Ok(createdQuestion);
     }
     
-    private async Task<IResult> UpdateQuestion(IMediator mediator, Question question)
+    private async Task<IResult> UpdateQuestion(IMediator mediator, EditQuestionDto question)
     {
         var updateQuestion = new UpdateQuestion
         {
