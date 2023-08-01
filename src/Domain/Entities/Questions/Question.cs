@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 using Domain.Entities.Quizzes;
-using Domain.Primitives;
+using Domain.Models;
 
 namespace Domain.Entities.Questions;
 
-public sealed class Question : Entity
+public sealed class Question : Entity<QuestionId>
 {
     public QuestionId Id { get; set; }
     public string Prompt { get; set; }
