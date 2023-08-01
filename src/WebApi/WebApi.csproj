@@ -25,7 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\Presentation\Presentation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +34,5 @@
   <ItemGroup>
     <Folder Include="Abstractions\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Filters\" />
   </ItemGroup>
 </Project>

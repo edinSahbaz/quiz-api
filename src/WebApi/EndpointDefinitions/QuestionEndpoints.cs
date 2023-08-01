@@ -5,6 +5,7 @@ using Application.Questions.Commands;
 using Domain.Entities.Questions;
 using Domain.Entities.Quizzes;
 using WebApi.Abstractions;
+using WebApi.Filters.Questions;
 
 namespace WebApi.EndpointDefinitions;
 
@@ -15,10 +16,17 @@ public class QuestionEndpoints : IEndpointDefinition
         var questions = app.MapGroup("/api/questions");
 
         questions.MapGet("/", GetAllQuestions);
+        
         questions.MapGet("/{quizId:guid}", GetQuizQuestions);
+        
         questions.MapGet("/{prompt}", GetQuestionsByPrompt);
-        questions.MapPost("/", CreateQuestion);
-        questions.MapPut("/", UpdateQuestion);
+
+        questions.MapPost("/", CreateQuestion)
+            .AddEndpointFilter<CreateQuestionValidationFilter>();
+        
+        questions.MapPut("/", UpdateQuestion)
+            .AddEndpointFilter<UpdateQuestionValidationFilter>();
+
         questions.MapDelete("/", DeleteQuestion);
     }
     

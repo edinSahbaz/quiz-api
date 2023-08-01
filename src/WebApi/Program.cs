@@ -1,6 +1,5 @@
 using Application;
 using Infrastructure;
-using Presentation;
 using WebApi.Extensions;
 using Serilog;
 
@@ -11,8 +10,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddApplication()
-    .AddInfrastructure(builder.Configuration)
-    .AddPresentation();
+    .AddInfrastructure(builder.Configuration);
 
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));

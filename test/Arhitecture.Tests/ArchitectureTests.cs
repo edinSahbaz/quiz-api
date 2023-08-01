@@ -5,7 +5,6 @@ public class ArchitectureTests
     private const string DomainNamespace = "Domain";
     private const string ApplicationNamespace = "Application";
     private const string InfrastructureNamespace = "Infrastructure";
-    private const string PresentationNamespace = "Presentation";
     private const string WebNamespace = "WebAPI";
 
     [Fact]
@@ -18,7 +17,6 @@ public class ArchitectureTests
         {
             ApplicationNamespace,
             InfrastructureNamespace,
-            PresentationNamespace,
             WebNamespace
         };
 
@@ -42,7 +40,6 @@ public class ArchitectureTests
         var otherProjects = new[]
         {
             InfrastructureNamespace,
-            PresentationNamespace,
             WebNamespace
         };
 
@@ -84,30 +81,6 @@ public class ArchitectureTests
 
         var otherProjects = new[]
         {
-            PresentationNamespace,
-            WebNamespace
-        };
-
-        // Act
-        var testResult = Types
-            .InAssembly(assembly)
-            .ShouldNot()
-            .HaveDependencyOnAll(otherProjects)
-            .GetResult();
-
-        // Assert
-        Assert.True(testResult.IsSuccessful);
-    }
-
-    [Fact]
-    public void Presentation_Should_Not_HaveDependencyOnOtherProjects()
-    {
-        // Arrange
-        var assembly = typeof(Presentation.AssemblyReference).Assembly;
-
-        var otherProjects = new[]
-        {
-            InfrastructureNamespace,
             WebNamespace
         };
 

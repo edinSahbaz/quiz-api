@@ -4,6 +4,7 @@ using Application.Quizzes.Commands;
 using Application.Quizzes.Queries;
 using Application.DTOs.Quizzes;
 using WebApi.Abstractions;
+using WebApi.Filters.Quizzes;
 
 namespace WebApi.EndpointDefinitions;
 
@@ -14,9 +15,15 @@ public class QuizEndpoints : IEndpointDefinition
         var quizzes = app.MapGroup("/api/quizzes");
 
         quizzes.MapGet("/", GetAllQuizzes);
+        
         quizzes.MapGet("/{quizId:guid}", GetQuizById);
-        quizzes.MapPost("/", CreateQuiz);
-        quizzes.MapPut("/", UpdateQuiz);
+        
+        quizzes.MapPost("/", CreateQuiz)
+            .AddEndpointFilter<CreateQuizValidationFilter>();
+        
+        quizzes.MapPut("/", UpdateQuiz)
+            .AddEndpointFilter<UpdateQuizValidationFilter>();
+        
         quizzes.MapDelete("/", DeleteQuiz);
     }
 
