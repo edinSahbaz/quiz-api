@@ -1,6 +1,5 @@
 using MediatR;
 using Domain.Repositories;
-using Domain.Entities.Questions;
 using Application.Questions.Commands;
 
 namespace Application.Questions.CommandHandlers;

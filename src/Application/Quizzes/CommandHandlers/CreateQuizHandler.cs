@@ -1,9 +1,7 @@
-using System.Collections.ObjectModel;
 using MediatR;
 using Domain.Repositories;
 using Domain.Entities.Quizzes;
 using Application.Quizzes.Commands;
-using Domain.Entities.Questions;
 
 namespace Application.Quizzes.CommandHandlers;
 

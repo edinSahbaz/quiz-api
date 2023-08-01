@@ -1,5 +1,3 @@
-using Domain.Entities.Questions;
-
 namespace Application.DTOs.Question;
 
 public class AddQuestionDto

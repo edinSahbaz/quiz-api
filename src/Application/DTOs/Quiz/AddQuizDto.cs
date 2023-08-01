@@ -1,4 +1,3 @@
-using Domain.Entities.Quizzes;
 using Domain.Entities.Questions;
 
 namespace Application.DTOs.Quiz;
