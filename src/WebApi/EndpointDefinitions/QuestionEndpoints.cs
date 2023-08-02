@@ -18,8 +18,6 @@ public class QuestionEndpoints : IEndpointDefinition
         
         questions.MapGet("/{quizId:guid}", GetQuizQuestions);
         
-        questions.MapGet("/{prompt}", GetQuestionsByPrompt);
-
         questions.MapPost("/", CreateQuestion)
             .AddEndpointFilter<CreateQuestionValidationFilter>();
         
@@ -29,9 +27,15 @@ public class QuestionEndpoints : IEndpointDefinition
         questions.MapDelete("/", DeleteQuestion);
     }
     
-    private async Task<IResult> GetAllQuestions(IMediator mediator, int page, int pageSize)
+    private async Task<IResult> GetAllQuestions(
+        IMediator mediator, 
+        string? sortColumn, 
+        string? sortOrder, 
+        int page, 
+        int pageSize, 
+        string? prompt)
     {
-        var getAllQuestions = new GetAllQuestions(page, pageSize);
+        var getAllQuestions = new GetAllQuestions(sortColumn, sortOrder, page, pageSize, prompt);
         var questions = await mediator.Send(getAllQuestions);
 
         return TypedResults.Ok(questions);
@@ -44,15 +48,7 @@ public class QuestionEndpoints : IEndpointDefinition
 
         return TypedResults.Ok(questions);
     }
-    
-    private async Task<IResult> GetQuestionsByPrompt(IMediator mediator, string prompt)
-    {
-        var getQuestions = new GetQuestionsByPrompt(prompt);
-        var questions = await mediator.Send(getQuestions);
 
-        return TypedResults.Ok(questions);
-    }
-    
     private async Task<IResult> CreateQuestion(IMediator mediator, CreateQuestion command)
     {
         var createdQuestion = await mediator.Send(command);

@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Domain.Exceptions;
 using Domain.Repositories;
 using Domain.Entities.Quizzes;
@@ -15,13 +16,40 @@ public class QuestionRepository : IQuestionRepository
         _context = context;
     }
     
-    public async Task<ICollection<Question>> GetAllQuestions(int page, int pageSize)
+    public async Task<ICollection<Question>> GetAllQuestions(string? sortColumn, string? sortOrder, int page, int pageSize, string? prompt)
     {
-        return await _context.Questions
-            .OrderBy(q => q.AddedTime)
+        IQueryable<Question> questionsQuery = _context.Questions;
+
+        if (!string.IsNullOrEmpty(prompt))
+        {
+            questionsQuery = questionsQuery.Where(q => q.Prompt.ToLower().Contains(prompt.ToLower()));
+        }
+
+        if (sortOrder?.ToLower() == "desc")
+        {
+            questionsQuery = questionsQuery.OrderByDescending(GetSortProperty(sortColumn));
+        }
+        else
+        {
+            questionsQuery = questionsQuery.OrderBy(GetSortProperty(sortColumn));
+        }
+
+        var questions = await questionsQuery
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
+
+        return questions;
+    }
+
+    private static Expression<Func<Question, object>> GetSortProperty(string? sortColumn)
+    {
+        return sortColumn?.ToLower() switch
+        {
+            "prompt" => question => question.Prompt,
+            "answer" => question => question.Answer,
+            _ => question => question.AddedTime
+        };
     }
 
     public async Task<ICollection<Question>> GetQuizQuestions(QuizId quizId)
@@ -36,14 +64,6 @@ public class QuestionRepository : IQuestionRepository
     {
         return await _context.Questions
             .Where(q => questions.Contains(q.Id))
-            .OrderBy(q => q.AddedTime)
-            .ToListAsync();
-    }
-
-    public async Task<ICollection<Question>> GetQuestionByPrompt(string prompt)
-    {
-        return await _context.Questions
-            .Where(q => q.Prompt.ToLower().Contains(prompt.ToLower()))
             .OrderBy(q => q.AddedTime)
             .ToListAsync();
     }

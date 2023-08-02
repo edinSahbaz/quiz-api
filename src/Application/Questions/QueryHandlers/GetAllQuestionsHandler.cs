@@ -16,6 +16,6 @@ public class GetAllQuestionsHandler : IRequestHandler<GetAllQuestions, ICollecti
     
     public async Task<ICollection<Question>> Handle(GetAllQuestions request, CancellationToken cancellationToken)
     {
-        return await _questionRepository.GetAllQuestions(request.Page, request.PageSize);
+        return await _questionRepository.GetAllQuestions(request.SortColumn, request.SortOrder, request.Page, request.PageSize, request.Prompt);
     }
 }
