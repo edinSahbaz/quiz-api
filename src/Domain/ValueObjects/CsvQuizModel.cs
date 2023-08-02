@@ -4,10 +4,12 @@ namespace Domain.ValueObjects;
 
 public class CsvQuizModel : ValueObject
 {
-    public string Questions { get; set; }
+    public int QuestionNumber { get; set; }
+    public string Question { get; set; }
     
     public override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Questions;
+        yield return QuestionNumber;
+        yield return Question;
     }
 }

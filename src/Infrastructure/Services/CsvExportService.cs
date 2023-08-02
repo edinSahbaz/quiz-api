@@ -18,9 +18,13 @@ public class CsvExportService : IExportService
     {
         var data = new List<CsvQuizModel>();
 
-        foreach (var question in quiz.Questions)
+        foreach (var (question, index) in quiz.Questions.Select((q, index) => (q, index)))
         {
-            data.Add(new CsvQuizModel{ Questions = question.Prompt });
+            data.Add(new CsvQuizModel
+            {
+                QuestionNumber = index + 1, 
+                Question = question.Prompt
+            });
         }
 
         using var memoryStream = new MemoryStream();
