@@ -36,7 +36,7 @@ public class QuizEndpoints : IEndpointDefinition
     
     private async Task<IResult> GetQuizById(IMediator mediator, Guid quizId)
     {
-        var getQuiz = new GetQuizById { QuizId = new QuizId(quizId) };
+        var getQuiz = new GetQuizById(new QuizId(quizId));
         var quiz = await mediator.Send(getQuiz);
 
         return TypedResults.Ok(quiz);
@@ -58,7 +58,8 @@ public class QuizEndpoints : IEndpointDefinition
     
     private async Task<IResult> DeleteQuiz(IMediator mediator, Guid quizId)
     {
-        var deleteQuiz = new DeleteQuiz { QuizId = new QuizId(quizId) };
+        var deleteQuiz = new DeleteQuiz(new QuizId(quizId));
+        
         await mediator.Send(deleteQuiz);
 
         return TypedResults.NoContent();

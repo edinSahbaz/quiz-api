@@ -3,7 +3,4 @@ using Domain.Entities.Quizzes;
 
 namespace Application.Quizzes.Commands;
 
-public class DeleteQuiz : IRequest
-{
-    public QuizId QuizId { get; set; }
-}
+public record DeleteQuiz(QuizId QuizId) : IRequest;

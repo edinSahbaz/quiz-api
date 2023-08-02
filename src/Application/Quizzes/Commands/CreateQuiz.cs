@@ -4,8 +4,4 @@ using Domain.Entities.Quizzes;
 
 namespace Application.Quizzes.Commands;
 
-public class CreateQuiz : IRequest<Quiz>
-{
-    public string Title { get; set; }
-    public ICollection<QuestionId> QuestionIds { get; set; }
-}
+public record CreateQuiz(string Title, ICollection<QuestionId> QuestionIds) : IRequest<Quiz>;

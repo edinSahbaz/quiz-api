@@ -29,9 +29,9 @@ public class QuestionEndpoints : IEndpointDefinition
         questions.MapDelete("/", DeleteQuestion);
     }
     
-    private async Task<IResult> GetAllQuestions(IMediator mediator)
+    private async Task<IResult> GetAllQuestions(IMediator mediator, int page, int pageSize)
     {
-        var getAllQuestions = new GetAllQuestions();
+        var getAllQuestions = new GetAllQuestions(page, pageSize);
         var questions = await mediator.Send(getAllQuestions);
 
         return TypedResults.Ok(questions);
@@ -39,7 +39,7 @@ public class QuestionEndpoints : IEndpointDefinition
     
     private async Task<IResult> GetQuizQuestions(IMediator mediator, Guid quizId)
     {
-        var getQuestions = new GetQuizQuestions { QuizId = new QuizId(quizId) };
+        var getQuestions = new GetQuizQuestions(new QuizId(quizId));
         var questions = await mediator.Send(getQuestions);
 
         return TypedResults.Ok(questions);
@@ -47,7 +47,7 @@ public class QuestionEndpoints : IEndpointDefinition
     
     private async Task<IResult> GetQuestionsByPrompt(IMediator mediator, string prompt)
     {
-        var getQuestions = new GetQuestionsByPrompt { Prompt = prompt };
+        var getQuestions = new GetQuestionsByPrompt(prompt);
         var questions = await mediator.Send(getQuestions);
 
         return TypedResults.Ok(questions);
@@ -69,7 +69,8 @@ public class QuestionEndpoints : IEndpointDefinition
     
     private async Task<IResult> DeleteQuestion(IMediator mediator, Guid questionId)
     {
-        var deleteQuestion = new DeleteQuestion { QuestionId = new QuestionId(questionId) };
+        var deleteQuestion = new DeleteQuestion(new QuestionId(questionId));
+        
         await mediator.Send(deleteQuestion);
 
         return TypedResults.NoContent();

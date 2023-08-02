@@ -3,9 +3,4 @@ using Domain.Entities.Questions;
 
 namespace Application.Questions.Commands;
 
-public class UpdateQuestion : IRequest<Question>
-{
-    public QuestionId Id { get; set; }
-    public string Prompt { get; set; }
-    public string Answer { get; set; }
-}
+public record UpdateQuestion(QuestionId Id, string Prompt, string Answer) : IRequest<Question>;

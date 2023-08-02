@@ -4,9 +4,4 @@ using Domain.Entities.Quizzes;
 
 namespace Application.Quizzes.Commands;
 
-public class UpdateQuiz : IRequest<Quiz>
-{
-    public QuizId Id { get; set; }
-    public string Title { get; set; }
-    public ICollection<QuestionId> QuestionIds { get; set; }
-}
+public record UpdateQuiz(QuizId Id, string Title, ICollection<QuestionId> QuestionIds) : IRequest<Quiz>;

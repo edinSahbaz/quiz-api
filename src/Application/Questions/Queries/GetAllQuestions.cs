@@ -3,6 +3,4 @@ using Domain.Entities.Questions;
 
 namespace Application.Questions.Queries;
 
-public class GetAllQuestions : IRequest<ICollection<Question>>
-{
-}
+public record GetAllQuestions(int Page, int PageSize) : IRequest<ICollection<Question>>;
