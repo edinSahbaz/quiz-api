@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Domain.Entities.Questions;
 using Domain.Repositories;
 using Domain.Entities.Quizzes;
@@ -17,13 +18,40 @@ public class QuizRepository : IQuizRepository
         _questionRepository = questionRepository;
     }
     
-    public async Task<ICollection<Quiz>> GetAllQuizzes(int page, int pageSize)
+    public async Task<ICollection<Quiz>> GetAllQuizzes(string? sortColumn, string? sortOrder, int page, int pageSize, string? title)
     {
-        return await _context.Quizzes
-            .OrderBy(q => q.AddedTime)
+        IQueryable<Quiz> quizzesQuery = _context.Quizzes;
+
+        if (!string.IsNullOrEmpty(title))
+        {
+            quizzesQuery = quizzesQuery.Where(q => q.Title.ToLower().Contains(title.ToLower()));
+        }
+        
+        if (sortOrder?.ToLower() == "desc")
+        {
+            quizzesQuery = quizzesQuery.OrderByDescending(GetSortProperty(sortColumn));
+        }
+        else
+        {
+            quizzesQuery = quizzesQuery.OrderBy(GetSortProperty(sortColumn));
+        }
+        
+        var quizzes = await quizzesQuery
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
+
+        return quizzes;
+    }
+    
+    private static Expression<Func<Quiz, object>> GetSortProperty(string? sortColumn)
+    {
+        return sortColumn?.ToLower() switch
+        {
+            "title" => question => question.Title,
+            "last-modified" => question => question.LastModified,
+            _ => question => question.AddedTime
+        };
     }
 
     public async Task<Quiz> GetQuizById(QuizId quizId)

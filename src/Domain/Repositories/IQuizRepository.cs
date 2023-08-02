@@ -5,7 +5,7 @@ namespace Domain.Repositories;
 
 public interface IQuizRepository
 {
-    Task<ICollection<Quiz>> GetAllQuizzes(int page, int pageSize);
+    Task<ICollection<Quiz>> GetAllQuizzes(string? sortColumn, string? sortOrder, int page, int pageSize, string? title);
     Task<Quiz> GetQuizById(QuizId quizId);
     Task<Quiz> CreateQuiz(Quiz toCreate);
     Task<Quiz> UpdateQuiz(QuizId quizId, string title, ICollection<QuestionId> questionIds);

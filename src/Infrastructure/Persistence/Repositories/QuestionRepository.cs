@@ -48,6 +48,7 @@ public class QuestionRepository : IQuestionRepository
         {
             "prompt" => question => question.Prompt,
             "answer" => question => question.Answer,
+            "lastModified" => question => question.LastModified,
             _ => question => question.AddedTime
         };
     }
