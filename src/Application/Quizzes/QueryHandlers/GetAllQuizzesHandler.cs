@@ -5,7 +5,7 @@ using Domain.Repositories;
 
 namespace Application.Quizzes.QueryHandlers;
 
-public class GetAllQuizzesHandler : IRequestHandler<GetAllQuizzes, ICollection<Quiz>>
+internal sealed class GetAllQuizzesHandler : IRequestHandler<GetAllQuizzes, ICollection<Quiz>>
 {
     private readonly IQuizRepository _quizRepository;
     

@@ -5,7 +5,7 @@ using Application.Questions.Commands;
 
 namespace Application.Questions.CommandHandlers;
 
-public class UpdateQuestionHandler : IRequestHandler<UpdateQuestion, Question>
+internal sealed class UpdateQuestionHandler : IRequestHandler<UpdateQuestion, Question>
 {
     private readonly IQuestionRepository _questionRepository;
     

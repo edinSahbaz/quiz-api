@@ -5,7 +5,7 @@ using Application.Quizzes.Queries;
 
 namespace Application.Quizzes.QueryHandlers;
 
-public class GetQuizByIdHandler : IRequestHandler<GetQuizById, Quiz>
+internal sealed class GetQuizByIdHandler : IRequestHandler<GetQuizById, Quiz>
 {
     private readonly IQuizRepository _quizRepository;
     

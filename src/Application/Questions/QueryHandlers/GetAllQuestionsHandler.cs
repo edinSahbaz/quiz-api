@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Questions.QueryHandlers;
 
-public class GetAllQuestionsHandler : IRequestHandler<GetAllQuestions, ICollection<Question>>
+internal sealed class GetAllQuestionsHandler : IRequestHandler<GetAllQuestions, ICollection<Question>>
 {
     private readonly IQuestionRepository _questionRepository;
     

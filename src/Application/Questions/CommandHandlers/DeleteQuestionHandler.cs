@@ -4,7 +4,7 @@ using Application.Questions.Commands;
 
 namespace Application.Questions.CommandHandlers;
 
-public class DeleteQuestionHandler : IRequestHandler<DeleteQuestion>
+internal sealed class DeleteQuestionHandler : IRequestHandler<DeleteQuestion>
 {
     private readonly IQuestionRepository _questionRepository;
     

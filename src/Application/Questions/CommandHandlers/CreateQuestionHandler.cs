@@ -5,7 +5,7 @@ using Domain.Entities.Questions;
 
 namespace Application.Questions.CommandHandlers;
 
-public class CreateQuestionHandler : IRequestHandler<CreateQuestion, Question>
+internal sealed class CreateQuestionHandler : IRequestHandler<CreateQuestion, Question>
 {
     private readonly IQuestionRepository _questionRepository;
     

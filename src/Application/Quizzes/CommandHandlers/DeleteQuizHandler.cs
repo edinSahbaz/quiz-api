@@ -4,7 +4,7 @@ using Application.Quizzes.Commands;
 
 namespace Application.Quizzes.CommandHandlers;
 
-public class DeleteQuizHandler : IRequestHandler<DeleteQuiz>
+internal sealed class DeleteQuizHandler : IRequestHandler<DeleteQuiz>
 {
     private readonly IQuizRepository _quizRepository;
     

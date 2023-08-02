@@ -5,7 +5,7 @@ using Application.Quizzes.Commands;
 
 namespace Application.Quizzes.CommandHandlers;
 
-public class UpdateQuizHandler : IRequestHandler<UpdateQuiz, Quiz>
+internal sealed class UpdateQuizHandler : IRequestHandler<UpdateQuiz, Quiz>
 {
     private readonly IQuizRepository _quizRepository;
     

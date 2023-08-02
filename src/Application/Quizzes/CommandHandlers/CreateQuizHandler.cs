@@ -5,7 +5,7 @@ using Application.Quizzes.Commands;
 
 namespace Application.Quizzes.CommandHandlers;
 
-public class CreateQuizHandler : IRequestHandler<CreateQuiz, Quiz>
+internal sealed class CreateQuizHandler : IRequestHandler<CreateQuiz, Quiz>
 {
     private readonly IQuizRepository _quizRepository;
     private readonly IQuestionRepository _questionRepository;
