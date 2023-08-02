@@ -2,7 +2,6 @@ using MediatR;
 using Domain.Entities.Quizzes;
 using Application.Quizzes.Commands;
 using Application.Quizzes.Queries;
-using Application.DTOs.Quizzes;
 using WebApi.Abstractions;
 using WebApi.Filters.Quizzes;
 
@@ -43,29 +42,16 @@ public class QuizEndpoints : IEndpointDefinition
         return TypedResults.Ok(quiz);
     }
     
-    private async Task<IResult> CreateQuiz(IMediator mediator, CreateQuizDto newQuiz)
+    private async Task<IResult> CreateQuiz(IMediator mediator, CreateQuiz command)
     {
-        var createQuiz = new CreateQuiz
-        {
-            Title = newQuiz.Title,
-            QuestionIds = newQuiz.QuestionIds
-        };
-        
-        var createdQuiz = await mediator.Send(createQuiz);
+        var createdQuiz = await mediator.Send(command);
 
         return TypedResults.Ok(createdQuiz);
     }
     
-    private async Task<IResult> UpdateQuiz(IMediator mediator, UpdateQuizDto quiz)
+    private async Task<IResult> UpdateQuiz(IMediator mediator, UpdateQuiz command)
     {
-        var updateQuiz = new UpdateQuiz
-        {
-            Id = quiz.Id,
-            Title = quiz.Title,
-            QuestionIds = quiz.QuestionIds
-        };
-        
-        var updatedQuiz = await mediator.Send(updateQuiz);
+        var updatedQuiz = await mediator.Send(command);
 
         return TypedResults.Ok(updatedQuiz);
     }

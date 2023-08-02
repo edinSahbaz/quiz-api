@@ -1,10 +1,12 @@
-using Application.DTOs.Quizzes;
 using MediatR;
-using Domain.Entities.Quizzes;
 using Domain.Entities.Questions;
+using Domain.Entities.Quizzes;
 
 namespace Application.Quizzes.Commands;
 
-public class UpdateQuiz : UpdateQuizDto, IRequest<Quiz>
+public class UpdateQuiz : IRequest<Quiz>
 {
+    public QuizId Id { get; set; }
+    public string Title { get; set; }
+    public ICollection<QuestionId> QuestionIds { get; set; }
 }
