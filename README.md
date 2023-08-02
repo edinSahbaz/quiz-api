@@ -18,8 +18,6 @@ The Quiz Maker API supports the following functionality:
 - The API is thoroughly documented to ensure easy understanding and maintenance.
 
 # API Documentation
-## Quiz Ednpoints
-
 
 ## Question Endpoints
 ### `GET` /api/questions
@@ -79,5 +77,20 @@ The Quiz Maker API supports the following functionality:
 ### `DELETE` /api/questions/{questionId}
 **questionId** - string(path parameter)
 
+**Example**:
 - Request: `http://localhost:5050/api/questions/dbc1ddd1-9359-4ce7-97d1-e74be6591cb1`
 - Response: `Status Code 204`
+
+## Quiz Ednpoints
+
+### `GET` /api/quizzes
+
+**Query Parameters:**
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|page|integer(int32)|Page number for pagination|YES|
+|pageSize|integer(int32)|Page size for pagination|YES|
+|sortColumn|string|Sorting column("answer", "last-modified"); DEFAULT: "AddedTime"|NO|
+|sortOrder|string|Sorting order("asc" - DEFAULT, "desc")|NO|
+|title|string|Quiz title(Includes only quizzes containing title string)|NO|
+
