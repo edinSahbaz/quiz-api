@@ -120,6 +120,7 @@ Returns quizzes data without their questions.
   }
 ]
 ```
+
 ### `GET` /api/quizzes/{quizId}
 **quizId** - string(path parameter)
 
@@ -159,7 +160,6 @@ Returns quiz data with its questions.
 }
 ```
 
-
 ### `POST` /api/quizzes
 **Request Body (application/json):**
 ``` json
@@ -197,4 +197,32 @@ Returns quiz data with its questions.
 - Response: `Status Code 204`
 
 # Exporter
-...
+
+### `GET` /api/export/getAvailableExporters
+
+Returns available exporter types.
+
+**Example**:
+- Request: `http://localhost:5050/api/export/getAvailableExporters`
+- Response:
+```json
+[
+  "text/csv"
+]
+```
+
+### `GET` /api/export/export/{quizId}
+**quizId** - string(path parameter)
+
+Exports quiz in designated file type.
+
+**Query Parameters:**
+|Name|Type|Description|Required|
+|----|----|-----------|--------|
+|format|string|File format ("text/csv")|YES|
+|fileName|string|Exported file name|YES|
+|quizId|string|Required quiz ID|YES|
+
+**Example**:
+- Request: `http://localhost:5050/api/export/export/fe57da01-5137-45a1-969e-79ee120b911d?format=text%2Fcsv&fileName=test`
+- Response: file.
