@@ -5,7 +5,7 @@ namespace Domain.Repositories;
 
 public interface IQuestionRepository
 {
-    Task<ICollection<Question>> GetAllQuestions();
+    Task<ICollection<Question>> GetAllQuestions(int page, int pageSize);
     Task<ICollection<Question>> GetQuizQuestions(QuizId quizId);
     Task<ICollection<Question>> GetQuestionsByIds(ICollection<QuestionId> questions);
     Task<ICollection<Question>> GetQuestionByPrompt(string prompt);

@@ -17,9 +17,13 @@ public class QuizRepository : IQuizRepository
         _questionRepository = questionRepository;
     }
     
-    public async Task<ICollection<Quiz>> GetAllQuizzes()
+    public async Task<ICollection<Quiz>> GetAllQuizzes(int page, int pageSize)
     {
-        return await _context.Quizzes.OrderBy(q => q.AddedTime).ToListAsync();
+        return await _context.Quizzes
+            .OrderBy(q => q.AddedTime)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 
     public async Task<Quiz> GetQuizById(QuizId quizId)

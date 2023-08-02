@@ -1,7 +1,7 @@
-using Domain.Entities.Questions;
-using Domain.Entities.Quizzes;
 using Domain.Exceptions;
 using Domain.Repositories;
+using Domain.Entities.Quizzes;
+using Domain.Entities.Questions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories;
@@ -15,9 +15,13 @@ public class QuestionRepository : IQuestionRepository
         _context = context;
     }
     
-    public async Task<ICollection<Question>> GetAllQuestions()
+    public async Task<ICollection<Question>> GetAllQuestions(int page, int pageSize)
     {
-        return await _context.Questions.OrderBy(q => q.AddedTime).ToListAsync();
+        return await _context.Questions
+            .OrderBy(q => q.AddedTime)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 
     public async Task<ICollection<Question>> GetQuizQuestions(QuizId quizId)

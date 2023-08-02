@@ -16,6 +16,6 @@ public class GetAllQuizzesHandler : IRequestHandler<GetAllQuizzes, ICollection<Q
     
     public async Task<ICollection<Quiz>> Handle(GetAllQuizzes request, CancellationToken cancellationToken)
     {
-        return await _quizRepository.GetAllQuizzes();
+        return await _quizRepository.GetAllQuizzes(request.Page, request.PageSize);
     }
 }
