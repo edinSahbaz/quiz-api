@@ -17,14 +17,14 @@ The Quiz Maker API supports the following functionality:
 - Exporters and their dynamic loading are implemented using the **Managed Extensibility Framework** (MEF).
 - The API is thoroughly documented to ensure easy understanding and maintenance.
 
-## API Documentation
-### Quiz Ednpoints
+# API Documentation
+## Quiz Ednpoints
 
 
-### Question Endpoints
-#### `GET` /api/questions
+## Question Endpoints
+### `GET` /api/questions
 
-Query Parameters:
+**Query Parameters:**
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
 |page|integer(int32)|Page number for pagination|YES|
@@ -34,9 +34,9 @@ Query Parameters:
 |prompt|string|Question prompt(Includes only questions with containing prompt)|NO|
 |quizId|string|Includes only questions with specific quizId|NO|
 
-Example:
-Request: `http://localhost:5050/api/questions?page=1&pageSize=2`
-Response:
+**Example**:
+- Request: `http://localhost:5050/api/questions?page=1&pageSize=2`
+- Response:
 ```json
 [
   {
@@ -55,3 +55,29 @@ Response:
   }
 ]
 ```
+### `POST` /api/questions
+**Request Body (application/json):**
+``` json
+{
+  "prompt": "string",
+  "answer": "string"
+}
+```
+
+### `PUT` /api/questions
+**Request Body (application/json):**
+``` json
+{
+  "id": {
+    "value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  },
+  "prompt": "string",
+  "answer": "string"
+}
+```
+
+### `DELETE` /api/questions/{questionId}
+**questionId** - string(path parameter)
+
+- Request: `http://localhost:5050/api/questions/dbc1ddd1-9359-4ce7-97d1-e74be6591cb1`
+- Response: `Status Code 204`
