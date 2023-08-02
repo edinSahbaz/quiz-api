@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
+using Application.Abstractions.Export;
 using Domain.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
+using Infrastructure.Providers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +24,7 @@ public static class DependencyInjection
         var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
         services.AddSingleton(container);
 
-        services.AddExporterProvider();
+        services.AddSingleton<IExportServiceProvider, ExportServiceProvider>();
         
         return services;
     }

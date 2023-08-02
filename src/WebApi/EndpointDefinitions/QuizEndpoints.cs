@@ -1,8 +1,8 @@
 using MediatR;
 using Domain.Entities.Quizzes;
+using Application.Abstractions.Export;
 using Application.Quizzes.Commands;
 using Application.Quizzes.Queries;
-using Infrastructure;
 using WebApi.Abstractions;
 using WebApi.Filters.Quizzes;
 

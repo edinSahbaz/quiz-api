@@ -9,8 +9,4 @@
   <ItemGroup>
     <None Remove="Entities\QuizQuestion\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
 </Project>
