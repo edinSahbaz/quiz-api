@@ -13,7 +13,8 @@ public class QuizEndpoints : IEndpointDefinition
     {
         var quizzes = app.MapGroup("/api/quizzes");
 
-        quizzes.MapGet("/", GetAllQuizzes);
+        quizzes.MapGet("/", GetAllQuizzes)
+            .RequireRateLimiting("fixed");
         
         quizzes.MapGet("/{quizId:guid}", GetQuizById);
         

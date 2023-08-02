@@ -1,4 +1,6 @@
-﻿using WebApi.Abstractions;
+﻿using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
+using WebApi.Abstractions;
 
 namespace WebApi.Extensions;
 
@@ -17,5 +19,21 @@ public static class WebApiExtensions
         {
             endpointDefinition.RegisterEndpoints(app);
         }
+    }
+    
+    public static void AddRateLimiter(this IServiceCollection services)
+    {
+        services.AddRateLimiter(rateLimiterOptions =>
+        {
+            rateLimiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    
+            rateLimiterOptions.AddFixedWindowLimiter("fixed", options =>
+            {
+                options.Window = TimeSpan.FromSeconds(1);
+                options.PermitLimit = 10;
+                options.QueueLimit = 0;
+                options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+            });
+        });
     }
 }

@@ -14,7 +14,8 @@ public class QuestionEndpoints : IEndpointDefinition
     {
         var questions = app.MapGroup("/api/questions");
 
-        questions.MapGet("/", GetAllQuestions);
+        questions.MapGet("/", GetAllQuestions)
+            .RequireRateLimiting("fixed");
         
         questions.MapPost("/", CreateQuestion)
             .AddEndpointFilter<CreateQuestionValidationFilter>();
