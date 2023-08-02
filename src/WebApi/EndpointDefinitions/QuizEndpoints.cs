@@ -23,7 +23,7 @@ public class QuizEndpoints : IEndpointDefinition
         quizzes.MapPut("/", UpdateQuiz)
             .AddEndpointFilter<UpdateQuizValidationFilter>();
         
-        quizzes.MapDelete("/", DeleteQuiz);
+        quizzes.MapDelete("/{quizId:guid}", DeleteQuiz);
     }
 
     private async Task<IResult> GetAllQuizzes(

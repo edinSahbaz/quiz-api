@@ -22,7 +22,7 @@ public class QuestionEndpoints : IEndpointDefinition
         questions.MapPut("/", UpdateQuestion)
             .AddEndpointFilter<UpdateQuestionValidationFilter>();
 
-        questions.MapDelete("/", DeleteQuestion);
+        questions.MapDelete("/{questionId:guid}", DeleteQuestion);
     }
     
     private async Task<IResult> GetAllQuestions(
@@ -46,7 +46,7 @@ public class QuestionEndpoints : IEndpointDefinition
 
         return TypedResults.Ok(questions);
     }
- 
+
     private async Task<IResult> CreateQuestion(IMediator mediator, CreateQuestion command)
     {
         var createdQuestion = await mediator.Send(command);
