@@ -1,4 +1,6 @@
-﻿using Domain.Repositories;
+﻿using System.ComponentModel.Composition.Hosting;
+using System.Reflection;
+using Domain.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +15,14 @@ public static class DependencyInjection
     {
         services.AddDbContext<EnterwellQuizDbContext>(options => 
             options.UseSqlServer(configuration.GetConnectionString("LocalDB")));
-        
+
         services.AddScoped<IQuestionRepository, QuestionRepository>();
         services.AddScoped<IQuizRepository, QuizRepository>();
+        
+        var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+        services.AddSingleton(container);
+
+        services.AddExporterProvider();
         
         return services;
     }

@@ -2,6 +2,7 @@ using MediatR;
 using Domain.Entities.Quizzes;
 using Application.Quizzes.Commands;
 using Application.Quizzes.Queries;
+using Infrastructure;
 using WebApi.Abstractions;
 using WebApi.Filters.Quizzes;
 
@@ -17,6 +18,8 @@ public class QuizEndpoints : IEndpointDefinition
             .RequireRateLimiting("fixed");
         
         quizzes.MapGet("/{quizId:guid}", GetQuizById);
+        
+        quizzes.MapGet("/export/{quizId:guid}", ExportQuiz);
         
         quizzes.MapPost("/", CreateQuiz)
             .AddEndpointFilter<CreateQuizValidationFilter>();
@@ -47,6 +50,23 @@ public class QuizEndpoints : IEndpointDefinition
         var quiz = await mediator.Send(getQuiz);
 
         return TypedResults.Ok(quiz);
+    }
+    
+    private async Task<IResult> ExportQuiz(IMediator mediator, IExportServiceProvider exportServiceProvider, string format, string fileName, Guid quizId)
+    {
+        var getQuiz = new GetQuizById(new QuizId(quizId));
+        var quiz = await mediator.Send(getQuiz);
+
+        var exporter = exportServiceProvider.GetExportService(format);
+
+        if (exporter is null)
+        {
+            return Results.BadRequest("Unsupported export format.");
+        }
+        
+        var exportedData = exporter.ExportQuiz(quiz);
+
+        return Results.File(exportedData, "application/octet-stream", $"{fileName}{exporter.Extension}");
     }
     
     private async Task<IResult> CreateQuiz(IMediator mediator, CreateQuiz command)
