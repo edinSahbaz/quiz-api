@@ -17,6 +17,11 @@ public class ExportServiceProvider : IExportServiceProvider
             .ToDictionary(e => e.Value.Format, e => e.Value);
     }
 
+    public ICollection<string> GetAvailableExporters()
+    {
+        return _exporters.Keys;
+    }
+
     public IExportService? GetExportService(string format)
     {
         _exporters.TryGetValue(format, out var exporter);
