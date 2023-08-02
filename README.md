@@ -195,3 +195,6 @@ Returns quiz data with its questions.
 **Example**:
 - Request: `http://localhost:5050/api/quizzes/84ca016b-f275-420a-a099-074724b32d70`
 - Response: `Status Code 204`
+
+# Exporter
+...
