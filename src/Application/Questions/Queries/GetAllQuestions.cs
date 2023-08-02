@@ -1,5 +1,6 @@
 using MediatR;
 using Domain.Entities.Questions;
+using Domain.Entities.Quizzes;
 
 namespace Application.Questions.Queries;
 
@@ -8,4 +9,5 @@ public record GetAllQuestions(
     string? SortOrder, 
     int Page, 
     int PageSize, 
-    string? Prompt) : IRequest<ICollection<Question>>;
+    string? Prompt,
+    QuizId? QuizId) : IRequest<ICollection<Question>>;

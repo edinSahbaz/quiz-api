@@ -16,7 +16,13 @@ public class QuestionRepository : IQuestionRepository
         _context = context;
     }
     
-    public async Task<ICollection<Question>> GetAllQuestions(string? sortColumn, string? sortOrder, int page, int pageSize, string? prompt)
+    public async Task<ICollection<Question>> GetAllQuestions(
+        string? sortColumn, 
+        string? sortOrder, 
+        int page, 
+        int pageSize, 
+        string? prompt, 
+        QuizId? quizId)
     {
         IQueryable<Question> questionsQuery = _context.Questions;
 
@@ -32,6 +38,11 @@ public class QuestionRepository : IQuestionRepository
         else
         {
             questionsQuery = questionsQuery.OrderBy(GetSortProperty(sortColumn));
+        }
+
+        if (quizId is not null)
+        {
+            questionsQuery = questionsQuery.Where(q => q.Quizzes.Any(quiz => quiz.Id == quizId));
         }
 
         var questions = await questionsQuery
@@ -51,14 +62,6 @@ public class QuestionRepository : IQuestionRepository
             "lastModified" => question => question.LastModified,
             _ => question => question.AddedTime
         };
-    }
-
-    public async Task<ICollection<Question>> GetQuizQuestions(QuizId quizId)
-    {
-        return await _context.Questions
-            .Where(q => q.Quizzes.Any(quiz => quiz.Id == quizId))
-            .OrderBy(q => q.AddedTime)
-            .ToListAsync();
     }
 
     public async Task<ICollection<Question>> GetQuestionsByIds(ICollection<QuestionId> questions)

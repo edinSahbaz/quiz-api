@@ -26,7 +26,13 @@ public class QuizEndpoints : IEndpointDefinition
         quizzes.MapDelete("/", DeleteQuiz);
     }
 
-    private async Task<IResult> GetAllQuizzes(IMediator mediator, string? sortColumn, string? sortOrder, int page, int pageSize, string? title)
+    private async Task<IResult> GetAllQuizzes(
+        IMediator mediator, 
+        string? sortColumn, 
+        string? sortOrder, 
+        int page, 
+        int pageSize, 
+        string? title)
     {
         var getAllQuizzes = new GetAllQuizzes(sortColumn, sortOrder, page, pageSize, title);
         var quizzes = await mediator.Send(getAllQuizzes);

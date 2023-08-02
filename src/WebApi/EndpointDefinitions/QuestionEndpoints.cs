@@ -16,8 +16,6 @@ public class QuestionEndpoints : IEndpointDefinition
 
         questions.MapGet("/", GetAllQuestions);
         
-        questions.MapGet("/{quizId:guid}", GetQuizQuestions);
-        
         questions.MapPost("/", CreateQuestion)
             .AddEndpointFilter<CreateQuestionValidationFilter>();
         
@@ -33,22 +31,22 @@ public class QuestionEndpoints : IEndpointDefinition
         string? sortOrder, 
         int page, 
         int pageSize, 
-        string? prompt)
+        string? prompt,
+        Guid? quizId)
     {
-        var getAllQuestions = new GetAllQuestions(sortColumn, sortOrder, page, pageSize, prompt);
+        QuizId? id = null;
+        
+        if (quizId is not null)
+        {
+            id = new QuizId(quizId.Value);
+        }
+
+        var getAllQuestions = new GetAllQuestions(sortColumn, sortOrder, page, pageSize, prompt, id);
         var questions = await mediator.Send(getAllQuestions);
 
         return TypedResults.Ok(questions);
     }
-    
-    private async Task<IResult> GetQuizQuestions(IMediator mediator, Guid quizId)
-    {
-        var getQuestions = new GetQuizQuestions(new QuizId(quizId));
-        var questions = await mediator.Send(getQuestions);
-
-        return TypedResults.Ok(questions);
-    }
-
+ 
     private async Task<IResult> CreateQuestion(IMediator mediator, CreateQuestion command)
     {
         var createdQuestion = await mediator.Send(command);
