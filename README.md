@@ -53,6 +53,7 @@ The Quiz Maker API supports the following functionality:
   }
 ]
 ```
+
 ### `POST` /api/questions
 **Request Body (application/json):**
 ``` json
@@ -85,6 +86,8 @@ The Quiz Maker API supports the following functionality:
 
 ### `GET` /api/quizzes
 
+Returns quizzes data without their questions.
+
 **Query Parameters:**
 |Name|Type|Description|Required|
 |----|----|-----------|--------|
@@ -94,3 +97,101 @@ The Quiz Maker API supports the following functionality:
 |sortOrder|string|Sorting order("asc" - DEFAULT, "desc")|NO|
 |title|string|Quiz title(Includes only quizzes containing title string)|NO|
 
+**Example**:
+- Request: `http://localhost:5050/api/quizzes?page=1&pageSize=2`
+- Response:
+```json
+[
+  {
+    "id": {
+      "value": "84ca016b-f275-420a-a099-074724b32d70"
+    },
+    "title": "Kviz 1",
+    "addedTime": "2023-08-01T19:56:23.224833",
+    "lastModified": "2023-08-01T19:56:23.224839"
+  },
+  {
+    "id": {
+      "value": "c54726cd-80b1-4832-87a1-dbbb3a50a5ad"
+    },
+    "title": "New title",
+    "addedTime": "2023-08-02T11:00:23.488648",
+    "lastModified": "2023-08-02T11:06:09.623577"
+  }
+]
+```
+### `GET` /api/quizzes/{quizId}
+**quizId** - string(path parameter)
+
+Returns quiz data with its questions.
+
+**Example**:
+- Request: `http://localhost:5050/api/quizzes/84ca016b-f275-420a-a099-074724b32d70`
+- Response:
+```json
+{
+  "id": {
+    "value": "84ca016b-f275-420a-a099-074724b32d70"
+  },
+  "title": "Kviz 1",
+  "questions": [
+    {
+      "id": {
+        "value": "0c2e36d1-1464-467d-bbb8-7180a2392b07"
+      },
+      "prompt": "Pitanje 2",
+      "answer": "Odgovor 2",
+      "addedTime": "2023-08-01T19:54:31.35914",
+      "lastModified": "2023-08-01T19:54:31.359155"
+    },
+    {
+      "id": {
+        "value": "921f6790-de27-45cc-b1bc-da396997fcce"
+      },
+      "prompt": "Pitanje 1",
+      "answer": "Odgovor 1",
+      "addedTime": "2023-08-01T19:54:21.888855",
+      "lastModified": "2023-08-01T19:54:21.890091"
+    }
+  ],
+  "addedTime": "2023-08-01T19:56:23.224833",
+  "lastModified": "2023-08-01T19:56:23.224839"
+}
+```
+
+
+### `POST` /api/quizzes
+**Request Body (application/json):**
+``` json
+{
+  "title": "string",
+  "questionIds": [
+    {
+      "value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    }
+  ]
+}
+```
+
+### `PUT` /api/quizzes
+**Request Body (application/json):**
+``` json
+{
+  "id": {
+    "value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  },
+  "title": "string",
+  "questionIds": [
+    {
+      "value": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    }
+  ]
+}
+```
+
+### `DELETE` /api/quizzes/{quizId}
+**quizId** - string(path parameter)
+
+**Example**:
+- Request: `http://localhost:5050/api/quizzes/84ca016b-f275-420a-a099-074724b32d70`
+- Response: `Status Code 204`
